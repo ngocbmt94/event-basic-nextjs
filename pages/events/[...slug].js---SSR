@@ -1,0 +1,41 @@
+import { useRouter } from "next/router";
+import { getFilteredEvents } from "../../server/server";
+import Error from "../../components/ui/Error";
+import EventList from "../../components/events/EventList";
+import EventResult from "../../components/events/EventResult";
+
+// SSR
+function EventsFillter({ allEventsFilter, year, month, hasError }) {
+  if (hasError) return <Error>{hasError}</Error>;
+  const covertDate = new Date(year, month - 1);
+  return (
+    <>
+      <EventResult date={covertDate} />
+      <EventList allEvents={allEventsFilter} />
+    </>
+  );
+}
+
+export async function getServerSideProps(context) {
+  const { params, res, req } = context;
+  const filter = params.slug;
+
+  if (filter?.length > 2 || !filter) return { props: { hasError: "Could not be found any events with filter" } };
+
+  const year = Number(filter[0]);
+  const month = Number(filter[1]);
+  if (isNaN(year) || isNaN(month) || month > 12 || month < 1) return { props: { hasError: "Invalid filter. Please check it again!!" } };
+
+  const allEventsFilter = await getFilteredEvents({ year, month });
+  if (!allEventsFilter || allEventsFilter.length === 0) return { props: { hasError: "No events found for the choosen filter" } };
+
+  return {
+    props: {
+      allEventsFilter,
+      year,
+      month,
+    },
+  };
+}
+
+export default EventsFillter;

@@ -7,7 +7,7 @@ function EventItem({ event }) {
   const { id, title, description, location, date, image } = event;
   const covertDate = formatDate(date);
 
-  const covertLocation = location.replace(",", "\n");
+  // const covertLocation = location.replace(",", "\n");
   return (
     <li className={styles.item}>
       <img src={`/${image}`} alt={`img-${id}`} className={styles.img} />
@@ -20,7 +20,7 @@ function EventItem({ event }) {
           </div>
           <div className={styles.location}>
             <HiMapPin />
-            <address>{covertLocation}</address>
+            <address>{location}</address>
           </div>
         </div>
         <div className={styles.actions}>
