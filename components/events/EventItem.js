@@ -2,6 +2,7 @@ import styles from "./eventItem.module.css";
 import Button from "../ui/Button";
 import { HiArrowLeftEndOnRectangle, HiCalendarDays, HiMapPin } from "react-icons/hi2";
 import { formatDate } from "../../help/help";
+import Image from "next/image";
 
 function EventItem({ event }) {
   const { id, title, description, location, date, image } = event;
@@ -10,7 +11,7 @@ function EventItem({ event }) {
   // const covertLocation = location.replace(",", "\n");
   return (
     <li className={styles.item}>
-      <img src={`/${image}`} alt={`img-${id}`} className={styles.img} />
+      <Image src={`/${image}`} alt={`img-${id}`} width={220} height={160} />
       <div className={styles.content}>
         <div className={styles.summary}>
           <h2>{title}</h2>

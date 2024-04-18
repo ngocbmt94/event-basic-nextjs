@@ -2,6 +2,7 @@ import styles from "./event-logistics.module.css";
 import { HiCalendarDays, HiMapPin } from "react-icons/hi2";
 import LogisticsItem from "./LogisticsItem";
 import { formatDate } from "../../help/help";
+import Image from "next/image";
 
 function EventLogistics({ date, address, image, imageAlt }) {
   const covertDate = formatDate(date);
@@ -10,7 +11,7 @@ function EventLogistics({ date, address, image, imageAlt }) {
   return (
     <section className={styles.logistics}>
       <div className={styles.image}>
-        <img src={`/${image}`} alt={imageAlt} />
+        <Image src={`/${image}`} alt={imageAlt} width={200} height={200} />
       </div>
       <ul className={styles.list}>
         <LogisticsItem icon={<HiCalendarDays />}>

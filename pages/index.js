@@ -1,9 +1,14 @@
+import Head from "next/head";
 import EventList from "../components/events/EventList";
 import { getFeaturedEvents } from "../server/server";
 
 function HomePage({ allEventsFeatured }) {
   return (
     <div>
+      <Head>
+        <title>Next Events</title>
+        <meta name="description" content="A lot of great events allow you to envolve..." />
+      </Head>
       <EventList allEvents={allEventsFeatured} />
     </div>
   );
