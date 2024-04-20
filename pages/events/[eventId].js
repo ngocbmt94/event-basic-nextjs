@@ -4,11 +4,13 @@ import Error from "../../components/ui/Error";
 import EventSummary from "../../components/event-detail/EventSummary";
 import EventLogistics from "../../components/event-detail/EventLogistics";
 import EventContent from "../../components/event-detail/EventContent";
+import Comments from "../../components/input/Comments";
 import Head from "next/head";
 
 function EventDetailPage({ event }) {
   if (!event) return <p className="center">Loading...</p>;
-  const { description, title, date, location, image } = event;
+  const { id, description, title, date, location, image } = event;
+
   return (
     <>
       <Head>
@@ -20,11 +22,13 @@ function EventDetailPage({ event }) {
       <EventContent>
         <p>{description}</p>
       </EventContent>
+      <Comments eventId={id} />
     </>
   );
 }
 
 export async function getStaticProps(context) {
+  // fetching event detail base on id from external api
   const { params } = context;
   const eventId = params.eventId;
   const event = await getEventById(eventId);
@@ -35,7 +39,7 @@ export async function getStaticProps(context) {
     props: {
       event,
     },
-    revalidate: 60,
+    revalidate: 10,
   };
 }
 

@@ -8,7 +8,6 @@ function EventItem({ event }) {
   const { id, title, description, location, date, image } = event;
   const covertDate = formatDate(date);
 
-  // const covertLocation = location.replace(",", "\n");
   return (
     <li className={styles.item}>
       <Image src={`/${image}`} alt={`img-${id}`} width={220} height={160} />

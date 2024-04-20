@@ -8,10 +8,13 @@
     "start": "next start"
   },
   "dependencies": {
+    "mongodb": "^6.5.0",
     "next": "^13.0.7",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-icons": "^5.1.0",
-    "swr": "^2.2.5"
+    "swr": "^2.2.5",
+    "zod": "^3.22.5",
+    "zod-validation-error": "^3.1.0"
   }
 }

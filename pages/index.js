@@ -1,5 +1,6 @@
 import Head from "next/head";
 import EventList from "../components/events/EventList";
+import NewsletterRegistration from "../components/input/NewsletterRegistration";
 import { getFeaturedEvents } from "../server/server";
 
 function HomePage({ allEventsFeatured }) {
@@ -9,6 +10,7 @@ function HomePage({ allEventsFeatured }) {
         <title>Next Events</title>
         <meta name="description" content="A lot of great events allow you to envolve..." />
       </Head>
+      <NewsletterRegistration />
       <EventList allEvents={allEventsFeatured} />
     </div>
   );
