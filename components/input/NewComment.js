@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import styles from "./new-comment.module.css";
 import { z } from "zod";
+import { useNotification } from "../../context/NotificationContext";
 
 const schemaComments = z.object({
   email: z.string().refine((value) => value.trim() !== "" && value.includes("@"), {
@@ -15,6 +16,7 @@ function NewComment({ eventId }) {
   const emailInputRef = useRef();
   const nameInputRef = useRef();
   const commentInputRef = useRef();
+  const { showNotification, hideNotification } = useNotification();
 
   function sendCommentHandler(event) {
     event.preventDefault();
@@ -34,6 +36,7 @@ function NewComment({ eventId }) {
       }
 
       setErrors(errorObj);
+      showNotification({ title: "Error", message: "Something went wrong!", status: "error" });
     } else {
       fetch(`/api/comments/${eventId}`, {
         method: "POST",
@@ -41,9 +44,12 @@ function NewComment({ eventId }) {
         headers: {
           "Content-type": "application/json",
         },
-      });
-
-      setErrors({});
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          showNotification({ title: "Success", message: "Successfully your comment...", status: "success" });
+          setErrors({});
+        });
     }
   }
 
